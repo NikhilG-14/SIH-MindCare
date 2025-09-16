@@ -1,28 +1,14 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const [moodScore, setMoodScore] = useState(7);
   const [moodEntries, setMoodEntries] = useState([]);
   const [dailyQuote, setDailyQuote] = useState({});
+  const [userData, setUserData] = useState(null);
 
   // Sample data - in a real app, this would come from an API
-  const userData = {
-    name: "Alex Johnson",
-    joinDate: "January 2024",
-    nextSession: {
-      date: "2025-01-15",
-      time: "2:00 PM",
-      therapist: "Dr. Sarah Johnson",
-      type: "Video Call",
-    },
-    stats: {
-      sessionsCompleted: 12,
-      goalsAchieved: 8,
-      streak: 5,
-    },
-  };
-
   const appointments = [
     {
       id: 1,
@@ -36,7 +22,7 @@ function Dashboard() {
       id: 2,
       date: "2025-01-22",
       time: "3:30 PM",
-      therapist: "Dr. Sarah Johnson",
+      therapist: "Dr. Michael Chen",
       type: "Video Call",
       status: "upcoming",
     },
@@ -119,6 +105,25 @@ function Dashboard() {
 
   // Simulate loading data
   useEffect(() => {
+    // Fetch user data from localStorage or API
+    const user = {
+      name: "Alex Johnson",
+      joinDate: "January 2024",
+      nextSession: {
+        date: "2025-01-15",
+        time: "2:00 PM",
+        therapist: "Dr. Sarah Johnson",
+        type: "Video Call",
+      },
+      stats: {
+        sessionsCompleted: 12,
+        goalsAchieved: 8,
+        streak: 5,
+      },
+    };
+
+    setUserData(user);
+
     // Generate mock mood entries for the past week
     const mockMoodEntries = [];
     const today = new Date();
@@ -139,8 +144,6 @@ function Dashboard() {
     // Set a random daily quote
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
     setDailyQuote(randomQuote);
-
-    // Simulate fetching user data from an API
   }, []);
 
   const handleMoodSubmit = (e) => {
@@ -177,6 +180,17 @@ function Dashboard() {
     alert("Mood recorded successfully!");
   };
 
+  if (!userData) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-blue-700">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 py-8 px-4">
       <div className="max-w-7xl mx-auto">
@@ -197,22 +211,122 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Dashboard Tabs */}
-        <div className="bg-white rounded-2xl shadow-xl p-1 mb-8 animate-fade-in-up">
-          <div className="flex flex-wrap">
-            {["overview", "progress", "resources", "community"].map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  activeTab === tab
-                    ? "bg-blue-100 text-blue-700"
-                    : "text-blue-500 hover:bg-blue-50"
-                }`}
-              >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
-              </button>
-            ))}
+        {/* Quick Action Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Link
+            to="/book"
+            className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+          >
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-semibold text-blue-800">Book Session</h3>
+                <p className="text-sm text-blue-600">
+                  Schedule with a therapist
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          <Link
+            to="/resources"
+            className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+            style={{ animationDelay: "0.1s" }}
+          >
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-semibold text-blue-800">Resources</h3>
+                <p className="text-sm text-blue-600">Helpful materials</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link
+            to="/peersupport"
+            className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+            style={{ animationDelay: "0.2s" }}
+          >
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-semibold text-blue-800">Community</h3>
+                <p className="text-sm text-blue-600">Peer support</p>
+              </div>
+            </div>
+          </Link>
+
+          <div
+            className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in-up"
+            style={{ animationDelay: "0.3s" }}
+          >
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-600 mr-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-semibold text-blue-800">Progress</h3>
+                <p className="text-sm text-blue-600">View your journey</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -333,9 +447,12 @@ function Dashboard() {
                 <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-300 text-center">
                   Join Session
                 </button>
-                <button className="flex-1 bg-white hover:bg-blue-50 text-blue-600 font-semibold py-3 px-4 rounded-lg shadow-md border border-blue-200 transition duration-300 text-center">
+                <Link
+                  to="/book"
+                  className="flex-1 bg-white hover:bg-blue-50 text-blue-600 font-semibold py-3 px-4 rounded-lg shadow-md border border-blue-200 transition duration-300 text-center flex items-center justify-center"
+                >
                   Reschedule
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -456,9 +573,12 @@ function Dashboard() {
                     </div>
                   ))}
               </div>
-              <button className="w-full mt-4 text-center text-blue-600 font-medium hover:text-blue-800 transition-colors">
+              <Link
+                to="/book"
+                className="w-full mt-4 text-center text-blue-600 font-medium hover:text-blue-800 transition-colors block"
+              >
                 View All Appointments →
-              </button>
+              </Link>
             </div>
 
             {/* Goals Progress */}
@@ -498,9 +618,10 @@ function Dashboard() {
               </h2>
               <div className="space-y-4">
                 {resources.map((resource) => (
-                  <div
+                  <Link
+                    to="/resources"
                     key={resource.id}
-                    className="flex items-start border border-blue-100 rounded-xl p-3"
+                    className="flex items-start border border-blue-100 rounded-xl p-3 hover:bg-blue-50 transition-colors"
                   >
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mr-3">
                       {resource.type === "Article"
@@ -527,12 +648,15 @@ function Dashboard() {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
-              <button className="w-full mt-4 text-center text-blue-600 font-medium hover:text-blue-800 transition-colors">
+              <Link
+                to="/resources"
+                className="w-full mt-4 text-center text-blue-600 font-medium hover:text-blue-800 transition-colors block"
+              >
                 Browse More Resources →
-              </button>
+              </Link>
             </div>
           </div>
         </div>

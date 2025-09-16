@@ -7,6 +7,7 @@ import Dashboard from "./Pages/Dashboard";
 import Book from "./Pages/Book";
 import Resources from "./Pages/Resources";
 import PeerSupport from "./Pages/PeerSupport";
+import Chatbot from "./Pages/Chatbot";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,6 +48,7 @@ function App() {
             <Link to="/book">Book</Link>
             <Link to="/resources">Resources</Link>
             <Link to="/peersupport">Peer Support</Link>
+            <Link to="/Chatbot">Chat With Us</Link>
             <button onClick={handleLogout} className="ml-auto">
               Logout
             </button>
@@ -96,6 +98,14 @@ function App() {
           element={
             <ProtectedRoute>
               <PeerSupport />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Chatbot"
+          element={
+            <ProtectedRoute>
+              <Chatbot />
             </ProtectedRoute>
           }
         />
