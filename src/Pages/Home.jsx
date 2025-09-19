@@ -30,6 +30,12 @@ function Home() {
               >
                 Get Started
               </Link>
+              <Link
+                to="/presession"
+                className="bg-white hover:bg-blue-50 text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md border border-blue-200 transition duration-300 text-center"
+              >
+                Start Therapy Session
+              </Link>
               <button
                 onClick={scrollToFeatures}
                 className="bg-white hover:bg-blue-50 text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md border border-blue-200 transition duration-300"
@@ -52,6 +58,19 @@ function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-800 mb-12">
             How MindCare Supports You
           </h2>
+
+          {/* Quick Navigation */}
+          <div className="mb-12 flex flex-wrap gap-3 justify-center">
+            <Link to="/therapy" className="px-4 py-2 rounded-full bg-blue-600 text-white text-sm hover:bg-blue-700">Therapy</Link>
+            <Link to="/analytics" className="px-4 py-2 rounded-full bg-indigo-600 text-white text-sm hover:bg-indigo-700">Analytics</Link>
+            <Link to="/recommendations" className="px-4 py-2 rounded-full bg-green-600 text-white text-sm hover:bg-green-700">Recommendations</Link>
+            <Link to="/settings" className="px-4 py-2 rounded-full bg-slate-700 text-white text-sm hover:bg-slate-800">Settings</Link>
+            <Link to="/dashboard" className="px-4 py-2 rounded-full bg-purple-600 text-white text-sm hover:bg-purple-700">Dashboard</Link>
+            <Link to="/book" className="px-4 py-2 rounded-full bg-pink-600 text-white text-sm hover:bg-pink-700">Book</Link>
+            <Link to="/resources" className="px-4 py-2 rounded-full bg-amber-600 text-white text-sm hover:bg-amber-700">Resources</Link>
+            <Link to="/peersupport" className="px-4 py-2 rounded-full bg-cyan-600 text-white text-sm hover:bg-cyan-700">Peer Support</Link>
+            <Link to="/Chatbot" className="px-4 py-2 rounded-full bg-emerald-600 text-white text-sm hover:bg-emerald-700">Chat</Link>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
