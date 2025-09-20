@@ -1,8 +1,8 @@
 
-# 🧠 MindCare
+# 🧠 UDAAN
 
 
-**MindCare** is a modern, interactive mental wellness platform built with React and Vite. It offers AI-powered therapy, mood analytics, peer support, and curated resources to support users’ mental health journeys.
+**UDAAN** is a modern, interactive mental wellness platform built with React and Vite. It offers AI-powered therapy, mood analytics, peer support, and curated resources to support users’ mental health journeys.
 
 ---
 
@@ -82,8 +82,8 @@
 
 ### 1. **Clone the Repository**
 ```sh
-git clone https://github.com/nikhil-dtech/SIH-MindCare.git
-cd SIH-MindCare
+git clone https://github.com/nikhil-dtech/Udaan.git
+cd Udaan
 ```
 
 ### 2. **Install Dependencies**
